@@ -1,5 +1,15 @@
 <template>
 <div class="home">
+  <v-text-field
+  class="pa-3"
+    outlined
+    label="Add task"
+    append-icon="mdi-plus"
+    hide-details
+    v-model="newTaskTitle"
+    @click:append="addTask()"
+    @keyup.enter="addTask()"
+  ></v-text-field>
   <v-list
       flat
       class="pt-0"
@@ -66,10 +76,20 @@
             title: 'Eat bananas',
             done: false,
           },
-        ]
+        ],
+        newTaskTitle: ''
       }
     },
     methods: {
+      addTask() {
+        const task = {
+          id: Date.now(),
+          title: this.newTaskTitle,
+          done: false
+        };
+        this.tasks = [...this.tasks, task];
+        this.newTaskTitle = '';
+      },
       doneTask(id) {
         const task = this.tasks.filter(task => task.id === id)[0]; // better support than .find()
         task.done = !task.done;
