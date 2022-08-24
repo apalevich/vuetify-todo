@@ -58,6 +58,14 @@
         <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
         <v-app-bar-title>Vuetify Todo</v-app-bar-title>
+        
+        <v-expand-x-transition>
+          <div
+            class="subtitle-1 text-right"
+          >
+            {{ curTime }}
+          </div>
+        </v-expand-x-transition>
 
       </v-app-bar>
     </v-card>
@@ -76,6 +84,17 @@
         { title: 'Todo', icon: 'mdi-format-list-checks', to: '/' },
         { title: 'About', icon: 'mdi-help-box', to: '/about' },
       ],
+      curTime: null,
     }),
+    methods: {
+      getCurTime() {
+        const now = new Date;
+        const formatted = `${now.toDateString()} ${now.toLocaleTimeString()}`
+        this.curTime = formatted;
+      }
+    },
+    created() {
+      setInterval(this.getCurTime, 1000)
+    }
   }
 </script>
