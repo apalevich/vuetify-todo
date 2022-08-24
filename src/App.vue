@@ -60,11 +60,11 @@
         <v-app-bar-title>Vuetify Todo</v-app-bar-title>
         
         <v-spacer>
-        <div
-          class="subtitle-1 text-right"
-        >
-          {{ curTime }}
-        </div>
+          <div
+            class="subtitle-1 text-right"
+          >
+            {{ curTime }}
+          </div>
         </v-spacer>
 
       </v-app-bar>
