@@ -14,4 +14,11 @@ Stand-alone web app to track tasks
 - Vue-router 3.5
 - Vuetify 2.6.0
 
-[Live Demo](https://apalevich.github.io/vuetify-todo/)
+## [Live Demo](https://apalevich.github.io/vuetify-todo/)
+
+Published with:
+```
+npm run build
+git add dist && git commit -m 'Add dist subtree'
+git subtree push --prefix dist origin gh-pages
+```
