@@ -1,29 +1,17 @@
-# vuetify-todo
+# Vuetify Todo
+*Vue 2*
 
-## Project setup
-```
-yarn install
-```
+Stand-alone web app to track tasks
 
-### Compiles and hot-reloads for development
-```
-yarn run serve
-```
+## Features
+- Add, mark as done and delete tasks
+- Tabs available via side bar
+- Fancy clock
 
-### Compiles and minifies for production
-```
-yarn run build
-```
+## Technologies
+- HTML, CSS, JS
+- Vue 2.6
+- Vue-router 3.5
+- Vuetify 2.6.0
 
-### Run your tests
-```
-yarn run test
-```
-
-### Lints and fixes files
-```
-yarn run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+[Live Demo](https://apalevich.github.io/vuetify-todo/)
