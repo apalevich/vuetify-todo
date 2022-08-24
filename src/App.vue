@@ -59,28 +59,8 @@
 
         <v-app-bar-title>Vuetify Todo</v-app-bar-title>
 
-        <v-spacer></v-spacer>
-
-        <v-btn icon>
-          <v-icon>mdi-magnify</v-icon>
-        </v-btn>
-
-        <v-btn icon>
-          <v-icon>mdi-heart</v-icon>
-        </v-btn>
-
-        <v-btn icon>
-          <v-icon>mdi-dots-vertical</v-icon>
-        </v-btn>
       </v-app-bar>
-      <!-- <v-sheet
-        id="scrolling-techniques-2"
-        class="overflow-y-auto"
-        max-height="600"
-      > -->
-      <!-- <v-container style="height: 128px;"></v-container> -->
-    </v-sheet>
-  </v-card>
+    </v-card>
 
     <v-main>
       <router-view></router-view>
