@@ -56,27 +56,13 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex';
+
   export default {
     name: 'Todo', 
     data() {
       return {
-        tasks: [
-          {
-            id: 1,
-            title: 'Wake up',
-            done: false,
-          },
-          {
-            id: 2,
-            title: 'Get bananas',
-            done: false,
-          },
-          {
-            id: 3,
-            title: 'Eat bananas',
-            done: false,
-          },
-        ],
+        tasks: [],
         newTaskTitle: ''
       }
     },
@@ -97,6 +83,10 @@
       deleteTask(id) {
         this.tasks = this.tasks.filter(task => task.id !== id);
       }
+    },
+    computed: mapGetters(['allTodos']),
+    created() {
+      this.tasks = this.allTodos;
     }
   }
 </script>
