@@ -1,47 +1,47 @@
 <template>
 <div class="home">
   <v-text-field
-  class="pa-3"
+    class="pa-3"
     outlined
-    label="Add task"
+    label="Add todo"
     append-icon="mdi-plus"
     hide-details
-    v-model="newTaskTitle"
-    @click:append="addTask()"
-    @keyup.enter="addTask()"
+    v-model="newTodoTitle"
+    @click:append="addTodo()"
+    @keyup.enter="addTodo()"
   ></v-text-field>
   <v-list
       flat
       class="pt-0"
     >
       <div
-          v-for="task in tasks"
-          :key="task.id"
+          v-for="todo in allTodos"
+          :key="todo.id"
       >
         <v-list-item
-          @click="doneTask(task.id)"
-          :class="{ 'blue lighten-5': task.done }"
+          @click="toggleDone(todo)"
+          :class="{ 'blue lighten-5': todo.completed }"
         >
           <template>
             <v-list-item-action>
               <v-checkbox
-                :input-value="task.done"
+                :input-value="todo.completed"
                 color="primary"
               ></v-checkbox>
             </v-list-item-action>
 
             <v-list-item-content>
               <v-list-item-title
-                :class="{ 'text-decoration-line-through': task.done }"
+                :class="{ 'text-decoration-line-through': todo.completed }"
               >
-                {{ task.title }}
+                {{ todo.title }}
               </v-list-item-title>
             </v-list-item-content>
 
             <v-list-item-action>
               <v-btn
                 icon
-                @click.stop="deleteTask(task.id)"
+                @click.stop="deleteTodo(todo.id)"
               >
                 <v-icon color="secondary lighten-1">mdi-delete</v-icon>
               </v-btn>
@@ -56,47 +56,34 @@
 </template>
 
 <script>
+  import { mapActions, mapGetters } from 'vuex';
+
   export default {
     name: 'Todo', 
     data() {
       return {
-        tasks: [
-          {
-            id: 1,
-            title: 'Wake up',
-            done: false,
-          },
-          {
-            id: 2,
-            title: 'Get bananas',
-            done: false,
-          },
-          {
-            id: 3,
-            title: 'Eat bananas',
-            done: false,
-          },
-        ],
-        newTaskTitle: ''
+        newTodoTitle: ''
       }
     },
     methods: {
-      addTask() {
-        const task = {
-          id: Date.now(),
-          title: this.newTaskTitle,
-          done: false
-        };
-        this.tasks = [...this.tasks, task];
-        this.newTaskTitle = '';
+      ...mapActions(['fetchTodos', 'pushTodo', 'deleteTodo', 'updateTodo']),
+      addTodo() {
+        this.pushTodo(this.newTodoTitle)
+        this.newTodoTitle = '';
       },
-      doneTask(id) {
-        const task = this.tasks.filter(task => task.id === id)[0]; // better support than .find()
-        task.done = !task.done;
-      },
-      deleteTask(id) {
-        this.tasks = this.tasks.filter(task => task.id !== id);
+      toggleDone({ id, title, completed }) {
+        const updTodo = {
+          id,
+          title,
+          completed: !completed
+        }
+
+        this.updateTodo(updTodo);
       }
+    },
+    computed: mapGetters(['allTodos']),
+    created() {
+      this.fetchTodos();
     }
   }
 </script>
