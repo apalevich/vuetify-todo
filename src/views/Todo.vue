@@ -19,7 +19,7 @@
           :key="todo.id"
       >
         <v-list-item
-          @click="doneTodo(todo.id)"
+          @click="toggleDone(todo)"
           :class="{ 'blue lighten-5': todo.completed }"
         >
           <template>
@@ -66,14 +66,20 @@
       }
     },
     methods: {
-      ...mapActions(['fetchTodos', 'pushTodo', 'deleteTodo']),
+      ...mapActions(['fetchTodos', 'pushTodo', 'deleteTodo', 'updateTodo']),
       addTodo() {
         this.pushTodo(this.newTodoTitle)
         this.newTodoTitle = '';
       },
-      doneTodo(id) {
-        //
-      },
+      toggleDone({ id, title, completed }) {
+        const updTodo = {
+          id,
+          title,
+          completed: !completed
+        }
+
+        this.updateTodo(updTodo);
+      }
     },
     computed: mapGetters(['allTodos']),
     created() {
