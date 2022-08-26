@@ -20,12 +20,12 @@
       >
         <v-list-item
           @click="doneTodo(todo.id)"
-          :class="{ 'blue lighten-5': todo.done }"
+          :class="{ 'blue lighten-5': todo.completed }"
         >
           <template>
             <v-list-item-action>
               <v-checkbox
-                :input-value="todo.done"
+                :input-value="todo.completed"
                 color="primary"
               ></v-checkbox>
             </v-list-item-action>
@@ -66,7 +66,7 @@
       }
     },
     methods: {
-      ...mapActions(['fetchTodos', 'pushTodo']),
+      ...mapActions(['fetchTodos', 'pushTodo', 'deleteTodo']),
       addTodo() {
         this.pushTodo(this.newTodoTitle)
         this.newTodoTitle = '';
@@ -74,9 +74,6 @@
       doneTodo(id) {
         //
       },
-      deleteTodo(id) {
-        this.todos = this.todos.filter(todo => todo.id !== id);
-      }
     },
     computed: mapGetters(['allTodos']),
     created() {
