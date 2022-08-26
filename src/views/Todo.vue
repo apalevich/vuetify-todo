@@ -1,7 +1,7 @@
 <template>
 <div class="home">
   <v-text-field
-  class="pa-3"
+    class="pa-3"
     outlined
     label="Add todo"
     append-icon="mdi-plus"
@@ -66,19 +66,13 @@
       }
     },
     methods: {
-      ...mapActions(['fetchTodos']),
+      ...mapActions(['fetchTodos', 'pushTodo']),
       addTodo() {
-        const todo = {
-          id: Date.now(),
-          title: this.newTodoTitle,
-          done: false
-        };
-        this.todos = [...this.todos, todo];
+        this.pushTodo(this.newTodoTitle)
         this.newTodoTitle = '';
       },
       doneTodo(id) {
-        const todo = this.todos.filter(todo => todo.id === id)[0];  // better supported than .find()
-        todo.done = !todo.done;
+        //
       },
       deleteTodo(id) {
         this.todos = this.todos.filter(todo => todo.id !== id);
