@@ -9,10 +9,11 @@ Stand-alone web app to track tasks
 - Fancy clock
 
 ## Technologies
-- HTML, CSS, JS
 - Vue 2.6
 - Vue-router 3.5
 - Vuetify 2.6.0
+- Axios 0.27
+- Vuex 3.6.2
 
 ## [Live Demo](https://apalevich.github.io/vuetify-todo/)
 
