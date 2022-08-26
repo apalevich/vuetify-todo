@@ -3,45 +3,45 @@
   <v-text-field
   class="pa-3"
     outlined
-    label="Add task"
+    label="Add todo"
     append-icon="mdi-plus"
     hide-details
-    v-model="newTaskTitle"
-    @click:append="addTask()"
-    @keyup.enter="addTask()"
+    v-model="newTodoTitle"
+    @click:append="addTodo()"
+    @keyup.enter="addTodo()"
   ></v-text-field>
   <v-list
       flat
       class="pt-0"
     >
       <div
-          v-for="task in tasks"
-          :key="task.id"
+          v-for="todo in allTodos"
+          :key="todo.id"
       >
         <v-list-item
-          @click="doneTask(task.id)"
-          :class="{ 'blue lighten-5': task.done }"
+          @click="doneTodo(todo.id)"
+          :class="{ 'blue lighten-5': todo.done }"
         >
           <template>
             <v-list-item-action>
               <v-checkbox
-                :input-value="task.done"
+                :input-value="todo.done"
                 color="primary"
               ></v-checkbox>
             </v-list-item-action>
 
             <v-list-item-content>
               <v-list-item-title
-                :class="{ 'text-decoration-line-through': task.done }"
+                :class="{ 'text-decoration-line-through': todo.completed }"
               >
-                {{ task.title }}
+                {{ todo.title }}
               </v-list-item-title>
             </v-list-item-content>
 
             <v-list-item-action>
               <v-btn
                 icon
-                @click.stop="deleteTask(task.id)"
+                @click.stop="deleteTodo(todo.id)"
               >
                 <v-icon color="secondary lighten-1">mdi-delete</v-icon>
               </v-btn>
@@ -56,37 +56,37 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex';
+  import { mapActions, mapGetters } from 'vuex';
 
   export default {
     name: 'Todo', 
     data() {
       return {
-        tasks: [],
-        newTaskTitle: ''
+        newTodoTitle: ''
       }
     },
     methods: {
-      addTask() {
-        const task = {
+      ...mapActions(['fetchTodos']),
+      addTodo() {
+        const todo = {
           id: Date.now(),
-          title: this.newTaskTitle,
+          title: this.newTodoTitle,
           done: false
         };
-        this.tasks = [...this.tasks, task];
-        this.newTaskTitle = '';
+        this.todos = [...this.todos, todo];
+        this.newTodoTitle = '';
       },
-      doneTask(id) {
-        const task = this.tasks.filter(task => task.id === id)[0]; // better support than .find()
-        task.done = !task.done;
+      doneTodo(id) {
+        const todo = this.todos.filter(todo => todo.id === id)[0];  // better supported than .find()
+        todo.done = !todo.done;
       },
-      deleteTask(id) {
-        this.tasks = this.tasks.filter(task => task.id !== id);
+      deleteTodo(id) {
+        this.todos = this.todos.filter(todo => todo.id !== id);
       }
     },
     computed: mapGetters(['allTodos']),
     created() {
-      this.tasks = this.allTodos;
+      this.fetchTodos();
     }
   }
 </script>

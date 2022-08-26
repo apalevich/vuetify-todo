@@ -1,32 +1,24 @@
  import axios from 'axios';
 
  const state = {
-    todos: [
-        {
-            id: 1,
-            title: 'Wake up',
-            done: false,
-        },
-        {
-            id: 2,
-            title: 'Get bananas',
-            done: false,
-        },
-        {
-            id: 3,
-            title: 'Eat bananas',
-            done: false,
-        },
-    ],
+    todos: [],
  };
 
  const getters = {
     allTodos: state => state.todos
  };
 
- const actions = {};
+ const actions = {
+    async fetchTodos({ commit }) {
+        const response = await axios.get('https://jsonplaceholder.typicode.com/todos?_limit=5');
 
- const mutations = {};
+        commit('setTodos', response.data)
+    }
+ };
+
+ const mutations = {
+    setTodos: (state, todos) => {state.todos = todos}
+ };
 
  export default {
     state,
